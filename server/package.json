@@ -5,16 +5,19 @@
   "author": "denny abbas zain",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only app.ts"
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "mongoose": "^6.2.10",
+    "nanoid": "^3.3.2"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/node": "^17.0.23",
-    "nodemon": "^2.0.15",
+    "dotenv": "^16.0.0",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.6.3"
   }
