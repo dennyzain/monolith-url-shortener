@@ -1,9 +1,10 @@
 import express, { Router } from 'express';
-import { shortURL } from '../controllers/shortUrl.controller';
+import { addShortURL, getShortURL, redirectingUrl} from '../controllers/shortUrl.controller';
 
 const router: Router = express.Router();
 
-router.get('/', shortURL);
-router.post('/shorting', shortURL);
+router.get('/', getShortURL);
+router.get('/:id', redirectingUrl);
+router.post('/short-url', addShortURL);
 
 export default router;

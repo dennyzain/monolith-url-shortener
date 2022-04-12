@@ -1,6 +1,6 @@
 import {Document, Schema, model } from 'mongoose';
 
-interface ShortUrlTypes extends Document{
+export interface ShortUrlTypes extends Document{
     fullUrl:string;
     shortUrl:string;
     click:number
@@ -20,5 +20,6 @@ const shortUrlSchema:Schema =new Schema<ShortUrlTypes>({
        required:true,
        default:0
    }
-})
+},
+{timestamps:true})
 export const ShortUrl=model<ShortUrlTypes>('ShortUrl',shortUrlSchema)
