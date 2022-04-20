@@ -10,7 +10,7 @@ export interface ShortUrlTypes extends Document{
 const shortUrlSchema:Schema =new Schema<ShortUrlTypes>({
    fullUrl:{
        type:String,
-       required:true
+       required:[true,'url must be exist!']
    },
    shortUrl:{
        type:String,

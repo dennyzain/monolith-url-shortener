@@ -3,6 +3,7 @@ import { ShortUrl } from '../models/shortUrl.model';
 
 export const getShortURL = async (req: Request, res: Response): Promise<void> => {
   const data = await ShortUrl.find();
+  console.log(data);
   res.status(200).send({ data });
 };
 
@@ -14,7 +15,6 @@ export const addShortURL = async (req: Request, res: Response): Promise<Response
   }
   await ShortUrl.create({ fullUrl });
   res.status(201).send({ message: 'short URL successfully created!' });
-  res.redirect('/');
 };
 
 export const redirectingUrl = async (req: Request, res: Response): Promise<Response | void> => {
