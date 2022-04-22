@@ -25,6 +25,6 @@
         "import/no-unresolved":"off",
         "import/extensions":"off",
         "react/function-component-definition":"off",
-        "max-len":"warn"
+        "max-len":"off"
     }
 }

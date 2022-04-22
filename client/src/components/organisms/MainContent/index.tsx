@@ -1,6 +1,6 @@
 import { Content } from 'antd/lib/layout/layout';
 import React from 'react';
-import ListContent from '../../molecules/ListContent';
+import ListContent from '../Table';
 import FormItem from '../Form';
 
 const MainContent :React.FC = () => (

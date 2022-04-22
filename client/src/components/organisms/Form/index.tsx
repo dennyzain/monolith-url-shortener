@@ -1,14 +1,27 @@
 import { Button, Form, Input } from 'antd';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import CallApi from '../../utils/CallApi';
 
 const FormItem :React.FC = () => {
-  const [fullUrl, setFullUrl] = useState('');
+  const [fullUrl, setFullUrl] = useState<string>('');
   const onHandleChange = ({ currentTarget }:React.FormEvent<HTMLInputElement>) => setFullUrl(currentTarget.value);
+  const isValidUrl = (url:string) => {
+    try {
+      const validUrl = new URL(url);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  };
   const onHandleSubmit = async () => {
-    if (fullUrl === '') {
-      console.log('form input must be exist');
-      return;
+    if (fullUrl !== '') {
+      if (!isValidUrl(fullUrl)) {
+        toast.error('link url not valid!');
+        return;
+      }
+    } else {
+      toast.error('link URL is not exist!');
     }
     await CallApi({ method: 'post', url: '/short-url', data: { fullUrl } });
   };
