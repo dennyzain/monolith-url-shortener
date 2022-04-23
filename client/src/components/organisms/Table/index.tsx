@@ -57,7 +57,7 @@ const ListContent:React.FC = () => {
 
   useEffect(() => {
     fetch();
-  }, []);
+  }, [data]);
 
   return (
     <Table

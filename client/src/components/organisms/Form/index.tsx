@@ -15,15 +15,20 @@ const FormItem :React.FC = () => {
     return true;
   };
   const onHandleSubmit = async () => {
-    if (fullUrl !== '') {
-      if (!isValidUrl(fullUrl)) {
-        toast.error('link url not valid!');
+    try {
+      if (fullUrl !== '') {
+        if (!isValidUrl(fullUrl)) {
+          toast.error('link url not valid!');
+          return;
+        }
+      } else {
+        toast.error('link URL is not exist!');
         return;
       }
-    } else {
-      toast.error('link URL is not exist!');
+      await CallApi({ method: 'post', url: '/short-url', data: { fullUrl } });
+    } catch (error) {
+      toast.error(error instanceof Error);
     }
-    await CallApi({ method: 'post', url: '/short-url', data: { fullUrl } });
   };
 
   return (

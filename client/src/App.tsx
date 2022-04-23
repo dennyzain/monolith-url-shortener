@@ -1,18 +1,26 @@
 import React from 'react';
-import 'react-toastify/dist/ReactToastify.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from 'react-router-dom';
+import Home from './pages/Home';
 import './styles/App.css';
-import { Layout, PageHeader } from 'antd';
-import { ToastContainer } from 'react-toastify';
-import MainContent from './components/organisms/MainContent';
-import FooterItem from './components/organisms/Footer';
 
 const App:React.FC = () => (
-  <Layout className="container" style={{ minHeight: '100vh' }}>
-    <PageHeader title="URL Shortener" subTitle="shorting your url web" />
-    <MainContent />
-    <FooterItem />
-    <ToastContainer />
-  </Layout>
+  <Router>
+    <Routes>
+      <Route path="/:shortId">
+        <div>
+          {console.log('this a redirect page')}
+        </div>
+      </Route>
+      <Route path="/">
+        <Home />
+      </Route>
+    </Routes>
+  </Router>
+
 );
 
 export default App;
