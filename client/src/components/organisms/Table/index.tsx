@@ -2,13 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Table } from 'antd';
 import moment from 'moment';
 import CallApi from '../../utils/CallApi';
+import { DataProps } from '../../../@types';
 
-interface DataProps{
-  click:number;
-  fullUrl:string;
-  shortUrl:string;
-  createdAt:number;
-}
+const baseUrl:string = process.env.REACT_APP_URL || 'http://localhost:3000';
 
 const columns = [
   {
@@ -30,7 +26,7 @@ const columns = [
     title: 'Created at',
     dataIndex: 'createdAt',
     key: 'createdAt',
-    sortDirection: 'ascend',
+    defaultSortOrder: 'ascend',
     sorter: (a:DataProps, b:DataProps) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
     render: (text:string) => moment(text).fromNow(),
   }, {
@@ -39,7 +35,7 @@ const columns = [
     key: 'shortUrl',
     render: (text:string, record:DataProps, index:number) => {
       const onCopy = () => {
-        navigator.clipboard.writeText(`${'http://localhost:5000'}/${text}`);
+        navigator.clipboard.writeText(`${baseUrl}/${text}`);
       };
       return (<Button key={index} onClick={onCopy}>Copy Link</Button>);
     },

@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 const CallApi = async ({ method, url, data }:AxiosRequestConfig) => {
   try {
-    const baseURL = 'http://localhost:5000/api';
+    const baseURL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5000/api';
     const response = await axios({
       method, url, baseURL, data,
     });
