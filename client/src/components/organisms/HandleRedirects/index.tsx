@@ -1,45 +1,39 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Layout, Spin } from 'antd';
-import {
-  useNavigate, useParams,
-} from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate, useParams } from 'react-router-dom';
 import { DataProps } from '../../../@types';
 import CallApi from '../../utils/CallApi';
 
 const HandleRedirects: React.FC = () => {
   const navigate = useNavigate();
-  const [state, setState] = useState<DataProps | null>(null);
   const { shortId } = useParams<{ shortId: string }>();
+  const [error, setError] = useState<string | null>(null);
+  const [state, setState] = useState<DataProps | null>({
+    click: 0,
+    createdAt: 0,
+    fullUrl: '',
+    shortUrl: '',
+  });
   const fetch = useCallback(async () => {
     try {
       const res = await CallApi({ method: 'GET', url: `/${shortId}` });
-      res.status !== 'failed' ? setState(res.data) : setState(null);
-    } catch (error) {
-      toast.error(error instanceof Error);
+      setState(res.data);
+    } catch (err) {
+      setError((err as Error).message);
     }
   }, []);
+
   useEffect(() => {
     fetch();
   }, []);
-  useEffect(() => {
-    state !== null ? window.location.replace(state.fullUrl) : window.setTimeout(() => navigate('/'), 4000);
-  }, [state]);
 
-  if (state === null) {
-    return (
-      <Layout
-        style={{
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-      >
-        <Spin size="large" tip={<h1>link not found! we will comeback to homepage</h1>} />
-        <ToastContainer />
-      </Layout>
-    );
-  }
+  useEffect(() => {
+    if (state && state?.fullUrl !== '' && error === null) {
+      window.location.replace(state.fullUrl);
+    } else {
+      window.setTimeout(() => navigate('/'), 4000);
+    }
+  }, [state]);
 
   return (
     <Layout
@@ -49,8 +43,11 @@ const HandleRedirects: React.FC = () => {
         justifyContent: 'center',
       }}
     >
-      <Spin size="large" tip={<h1> redirecting...</h1>} />
-      <ToastContainer />
+      {state === null ? (
+        <Spin size="large" tip={<h1> link not found! we will comeback to homepage</h1>} />
+      ) : (
+        <Spin size="large" tip={<h1> redirecting...</h1>} />
+      )}
     </Layout>
   );
 };

@@ -3,8 +3,8 @@ import React from 'react';
 import ListContent from '../Table';
 import FormItem from '../Form';
 
-const MainContent :React.FC = () => (
-  <Content style={{ margin: '0 50px', justifySelf: 'center' }}>
+const MainContent: React.FC = () => (
+  <Content style={{ margin: '0 10px', justifySelf: 'center' }}>
     <FormItem />
     <ListContent />
   </Content>

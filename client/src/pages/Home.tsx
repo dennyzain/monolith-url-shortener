@@ -7,11 +7,10 @@ import FooterItem from '../components/organisms/Footer';
 
 const Home:React.FC = () => (
   <Layout className="container" style={{ minHeight: '100vh' }}>
-    <PageHeader title="URL Shortener" subTitle="shorting your url web" />
+    <PageHeader title="URL Shortener" subTitle="shorting your link" />
     <MainContent />
     <FooterItem />
     <ToastContainer />
   </Layout>
 );
-
 export default Home;

@@ -26,7 +26,7 @@ const columns = [
     title: 'Created at',
     dataIndex: 'createdAt',
     key: 'createdAt',
-    defaultSortOrder: 'ascend',
+    sortDirection: ['ascend', 'descend'],
     sorter: (a:DataProps, b:DataProps) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
     render: (text:string) => moment(text).fromNow(),
   }, {
@@ -43,12 +43,11 @@ const columns = [
 ];
 
 const ListContent:React.FC = () => {
-  const [fetchData, setFetchData] = useState({ message: '', data: [], status: '' });
-  const { data } = fetchData;
+  const [data, setData] = useState([]);
 
   const fetch = useCallback(async () => {
     const res = await CallApi({ method: 'get', url: '/' });
-    setFetchData(res);
+    setData(res.data);
   }, []);
 
   useEffect(() => {
@@ -61,7 +60,8 @@ const ListContent:React.FC = () => {
       columns={columns}
       dataSource={data}
       scroll={{ x: true }}
-      onChange={(pagination, filters, sorter, extra) => null}
+      size="small"
+      onChange={(pagination, filters, sorter, extra) => [pagination, filters, sorter, extra]}
     />
   );
 };
