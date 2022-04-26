@@ -1,5 +1,4 @@
 import {Document, Schema, model } from 'mongoose';
-import { nanoid } from 'nanoid';
 
 export interface ShortUrlTypes extends Document{
     fullUrl:string;
@@ -15,7 +14,7 @@ const shortUrlSchema:Schema =new Schema<ShortUrlTypes>({
    shortUrl:{
        type:String,
        required:true,
-       default:nanoid(6)
+       unique:true,
    },
    click:{
        type:Number,
